@@ -23,9 +23,6 @@ importers:
       '@langchain/ollama':
         specifier: ^0.2.3
         version: 0.2.3(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76)))
-      axios:
-        specifier: ^1.10.0
-        version: 1.10.0(debug@4.4.1)
       chromadb:
         specifier: ^3.0.7
         version: 3.0.7
@@ -35,6 +32,7 @@ importers:
       langchain:
         specifier: ^0.3.29
         version: 0.3.29(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76)))(@langchain/google-genai@0.2.14(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76))))(@langchain/ollama@0.2.3(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76))))(axios@1.10.0)(openai@5.8.3(ws@8.18.3)(zod@3.25.76))(ws@8.18.3)
+    devDependencies:
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
