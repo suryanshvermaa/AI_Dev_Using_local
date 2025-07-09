@@ -4,7 +4,7 @@ import "dotenv/config";
 
 export const embeddings=new OllamaEmbeddings({
     model: "nomic-embed-text",
-    baseUrl: "http://localhost:11434", // Default value
+    baseUrl: "http://localhost:11434",
 })
 
 export const llm=new ChatGoogleGenerativeAI({
