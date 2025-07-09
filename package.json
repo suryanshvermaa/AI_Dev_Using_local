@@ -1,0 +1,19 @@
+{
+  "name": "vector_embeddings",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "suryansh verma",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.62",
+    "@langchain/google-genai": "^0.2.14",
+    "@langchain/ollama": "^0.2.3",
+    "axios": "^1.10.0",
+    "nodemon": "^3.1.10"
+  }
+}
