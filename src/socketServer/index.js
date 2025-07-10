@@ -33,14 +33,10 @@ class SocketService{
         const io=this._io;
         io.on("connect",(socket)=>{
             const userId=socket.userId;
-            console.log("New socket connected",socket.id);
-
             connectionsSocToUser.set(socket.id,socket.userId);
             connectionsUserToSoc.set(userId,socket.id);
 
             socket.on("event:message",async(message)=>{
-                console.log(connectionsSocToUser);
-                console.log(connectionsUserToSoc);
                 console.log("New message recieved:",message);
             })
 
