@@ -2,13 +2,15 @@ import { Server } from "socket.io";
 import {verifyToken} from "../middlewares/auth.middleware.js";
 import { AppError } from "../utils/error.js";
 
+const connectionsSocToUser=new Map();
+const connectionsUserToSoc=new Map();
+
 class SocketService{
     _io;
     constructor(){
         console.log("Init Socket Server...");
         this._io=new Server();
     }
-
     get io(){
         return this._io;
     }
@@ -30,14 +32,22 @@ class SocketService{
     initListeners(){
         const io=this._io;
         io.on("connect",(socket)=>{
+            const userId=socket.userId;
             console.log("New socket connected",socket.id);
 
+            connectionsSocToUser.set(socket.id,socket.userId);
+            connectionsUserToSoc.set(userId,socket.id);
+
             socket.on("event:message",async(message)=>{
+                console.log(connectionsSocToUser);
+                console.log(connectionsUserToSoc);
                 console.log("New message recieved:",message);
             })
 
             socket.on("disconnect",()=>{
                 console.log("Socket server disconnected",socket.id)
+                connectionsUserToSoc.delete(connectionsSocToUser.get(socket.id));
+                connectionsSocToUser.delete(socket.id);
             })
         });
     }
