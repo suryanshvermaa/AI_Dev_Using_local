@@ -7,12 +7,15 @@ import response from "./utils/response.js";
 import SocketService from './socketServer/index.js';
 import http from "http";
 
-const server=http.createServer();
-const app=express(server);
+const app=express();
+const server=http.createServer(app);
 const socketService=new SocketService();
 socketService.io.attach(server,{cors:{
+    allowedHeaders:["*"],
     origin:"*"
 }});
+socketService.auth();
+socketService.initListeners();
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +28,6 @@ app.get('/health',asyncHandler(async(req,res)=>{
 }))
 
 const port=process.env.PORT || 3000;
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log('server is running on port',port);
 })
