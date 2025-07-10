@@ -3,7 +3,7 @@ import { Server } from "socket.io";
 class SocketService{
     _io;
     constructor(){
-        console.log("init socket server");
+        console.log("Init Socket Server...");
         this._io=new Server();
     }
 
