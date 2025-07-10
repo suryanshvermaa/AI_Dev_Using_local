@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-import { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/error.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
@@ -12,10 +11,10 @@ import asyncHandler from "../utils/asyncHandler.js";
 const auth = () => {
 	return asyncHandler(
 		async (
-			req: Request,
-			res: Response,
-			next: NextFunction
-		): Promise<void> => {
+			req,
+			res,
+			next
+		) => {
 			const token =
 				req.headers?.["token"] ||
 				req.body?.["token"] ||
@@ -38,16 +37,16 @@ const auth = () => {
  * @returns {Promise<String>} - Returns a promise that resolves to the created token
  */
 const createToken = async (
-	data: ITokenPayload,
-	time: number
-): Promise<string> => {
+	data,
+	time
+) => {
 	return new Promise(async (resolve, reject) => {
 		try {
-			const token = await jwt.sign(data, process.env.AUTH_SECRET!, {
+			const token = await jwt.sign(data, process.env.AUTH_SECRET, {
 				expiresIn: `${time}m`,
 			}); //time in minutes
 			resolve(token);
-		} catch (err: unknown) {
+		} catch (err) {
 			reject(err);
 		}
 	});
@@ -58,18 +57,18 @@ const createToken = async (
  * @param {string} token - The JWT token to verify
  * @returns {Promise<object>} - Returns a promise that resolves to an object containing data
  */
-const verifyToken = async (token: string): Promise<ITokenPayload> => {
+const verifyToken = async (token) => {
 	return new Promise(async (resolve, reject) => {
 		try {
 			const isVerified = await jwt.verify(
 				token,
-				process.env.AUTH_SECRET!
+				process.env.AUTH_SECRET
 			);
 			if (!isVerified)
 				reject(new AppError("Token expires or invalid", 401));
 			const data = JSON.parse(JSON.stringify(isVerified));
 			resolve(data);
-		} catch (err: unknown) {
+		} catch (err) {
 			reject(err);
 		}
 	});
