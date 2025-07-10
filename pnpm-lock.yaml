@@ -23,6 +23,9 @@ importers:
       '@langchain/ollama':
         specifier: ^0.2.3
         version: 0.2.3(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76)))
+      bcryptjs:
+        specifier: ^3.0.2
+        version: 3.0.2
       chromadb:
         specifier: ^3.0.7
         version: 3.0.7
@@ -35,6 +38,9 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
+      jsonwebtoken:
+        specifier: ^9.0.2
+        version: 9.0.2
       langchain:
         specifier: ^0.3.29
         version: 0.3.29(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76)))(@langchain/google-genai@0.2.14(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76))))(@langchain/ollama@0.2.3(@langchain/core@0.3.62(openai@5.8.3(ws@8.18.3)(zod@3.25.76))))(axios@1.10.0)(openai@5.8.3(ws@8.18.3)(zod@3.25.76))(ws@8.18.3)
@@ -791,6 +797,10 @@ packages:
   base64id@2.0.0:
     resolution: {integrity: sha512-lGe34o6EHj9y3Kts9R4ZYs/Gr+6N7MCaMlIFA3F1R2O5/m7K06AxfSeO5530PEERE6/WyEg3lsuyw4GHlPZHog==}
     engines: {node: ^4.5.0 || >= 5.9}
+
+  bcryptjs@3.0.2:
+    resolution: {integrity: sha512-k38b3XOZKv60C4E2hVsXTolJWfkGRMbILBIe2IBITXciy5bOsTKot5kDrf3ZfufQtQOUN5mXceUEpU1rTl9Uog==}
+    hasBin: true
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -2352,6 +2362,8 @@ snapshots:
   base64-js@1.5.1: {}
 
   base64id@2.0.0: {}
+
+  bcryptjs@3.0.2: {}
 
   binary-extensions@2.3.0: {}
 

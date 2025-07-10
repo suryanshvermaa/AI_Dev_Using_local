@@ -2,6 +2,7 @@ import {Router} from 'express';
 const userRouter=Router();
 
 userRouter
-.get('/',)
+.post("/signup",signUp)
+.post("/login",login)
 
 export default userRouter;
