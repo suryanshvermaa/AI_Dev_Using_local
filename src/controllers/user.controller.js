@@ -26,14 +26,11 @@ export const signUp=asyncHander(async(req,res)=>{
     const pass=await bcrypt.hash(password,10);
     const user=await prisma.user.create({
         data:{
-            name,email,password:pass
+            name,email,password:pass,
         },
-        select:{
-            password:false
-        }
     })
-    const token=createToken({userId:user.id,email:user.email});
-    response(res,201,"user signup successful",{token,user});
+    const token=await createToken({userId:user.id,email:user.email},60*24);
+    response(res,201,"user signup successful",{token,user:{id:user.id,name:user.name,email:user.email}});
 }
 );
 
@@ -54,8 +51,8 @@ export const login=asyncHander(async(req,res)=>{
         }
     });
     if(!isExisting) throw new AppError("email not registered",400);
-    const isPasswordMatched=await bcrypt.compare(isExisting.password,password);
+    const isPasswordMatched=await bcrypt.compare(password,isExisting.password);
     if(!isPasswordMatched) throw new AppError("Password is incorrect",401);
-    const token=createToken({userId:isExisting.id,email:isExisting.email});
+    const token=await createToken({userId:isExisting.id,email:isExisting.email},60*24);
     response(res,200,"login sucessful",{token,user:{name:isExisting.name,email:isExisting.email}});
 })
