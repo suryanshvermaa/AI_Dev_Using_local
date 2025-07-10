@@ -1,12 +1,24 @@
 services:
   ollama: 
     image: ollama/ollama
-    container_name: ollama
+    container_name: local_dev_ollama
     ports:
       - 11434:11434
 
   vector_db:
     image: chromadb/chroma
-    container_name: chromadb
+    container_name: local_dev_vector_db
     ports:
       - 8000:8000
+
+  postgres:
+    image: postgres
+    container_name: local_dev_db
+    ports:
+      - 5000:5432
+    environment:
+      - POSTGRES_USER=local_dev_user
+      - POSTGRES_PASSWORD=local_dev_password
+      - POSTGRES_DB=local_dev_db
+    volumes:
+      - ./db:/var/lib/postgresql/data
