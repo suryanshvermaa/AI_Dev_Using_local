@@ -3,3 +3,4 @@ node_modules
 db
 chroma_db
 generated
+prisma/migrations
