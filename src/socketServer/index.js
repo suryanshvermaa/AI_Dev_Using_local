@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import {verifyToken} from "../middlewares/auth.middleware.js";
 import { AppError } from "../utils/error.js";
+import {addChat,getChats} from "./functions/chat.functions.js"
 
 const connectionsSocToUser=new Map();
 const connectionsUserToSoc=new Map();
@@ -31,17 +32,19 @@ class SocketService{
     }
     initListeners(){
         const io=this._io;
-        io.on("connect",(socket)=>{
+        io.on("connect",async(socket)=>{
             const userId=socket.userId;
             connectionsSocToUser.set(socket.id,socket.userId);
             connectionsUserToSoc.set(userId,socket.id);
+            const chats=await getChats(userId);
+            io.to(socket.id).emit("event:chats",chats);
 
             socket.on("event:message",async(message)=>{
-                console.log("New message recieved:",message);
+                const chat=await addChat({message,userId});
+                io.to(socket.id).emit("event:message",chat);
             })
 
             socket.on("disconnect",()=>{
-                console.log("Socket server disconnected",socket.id)
                 connectionsUserToSoc.delete(connectionsSocToUser.get(socket.id));
                 connectionsSocToUser.delete(socket.id);
             })
